@@ -13,12 +13,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - "node_info.gemspec"
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Gemspec/RequireMFA:
-  Exclude:
-    - "node_info.gemspec"
-
 # Offense count: 4
 Lint/IneffectiveAccessModifier:
   Exclude:
