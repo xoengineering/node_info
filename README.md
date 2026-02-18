@@ -159,7 +159,7 @@ server = NodeInfo::Server.new do |config|
 end
 
 # Stats are computed fresh each time
-server.to_json  # Calls all the procs to get current values
+server.to_json # Calls all the procs to get current values
 ```
 
 #### Alternative Proc Syntax
