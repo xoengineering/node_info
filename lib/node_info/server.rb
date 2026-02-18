@@ -22,34 +22,33 @@ module NodeInfo
   class Server
     # Configuration for NodeInfo server
     class Config
-      attr_accessor :software_name, :software_version, :software_repository,
-                    :software_homepage, :protocols, :services_inbound,
-                    :services_outbound, :open_registrations, :usage_users,
-                    :usage_users_active_month, :usage_users_active_halfyear,
-                    :usage_local_posts, :usage_local_comments, :metadata,
-                    :base_url
+      attr_accessor :base_url, :metadata, :open_registrations, :protocols,
+                    :services_inbound, :services_outbound,
+                    :software_homepage, :software_version, :software_name, :software_repository,
+                    :usage_local_comments, :usage_local_posts,
+                    :usage_users, :usage_users_active_halfyear, :usage_users_active_month
 
       def initialize
-        @protocols = []
-        @services_inbound = []
-        @services_outbound = []
+        @metadata           = {}
         @open_registrations = false
-        @usage_users = {}
-        @metadata = {}
+        @protocols          = []
+        @services_inbound   = []
+        @services_outbound  = []
+        @usage_users        = {}
       end
 
       # Get usage users hash, evaluating procs if necessary
       def users_hash
         users = usage_users.is_a?(Proc) ? usage_users.call : usage_users
 
-        if users.is_a?(Hash)
+        if users.is_a? Hash
           result = {}
-          result[:total] = evaluate_value(users[:total]) if users[:total]
-          result[:activeMonth] = evaluate_value(users[:activeMonth] || usage_users_active_month)
+          result[:total]          = evaluate_value(users[:total]) if users[:total]
+          result[:activeMonth]    = evaluate_value(users[:activeMonth]    || usage_users_active_month)
           result[:activeHalfyear] = evaluate_value(users[:activeHalfyear] || usage_users_active_halfyear)
         else
-          result = { total: evaluate_value(users) }
-          result[:activeMonth] = evaluate_value(usage_users_active_month)
+          result                  = { total: evaluate_value(users) }
+          result[:activeMonth]    = evaluate_value(usage_users_active_month)
           result[:activeHalfyear] = evaluate_value(usage_users_active_halfyear)
         end
 
@@ -100,15 +99,13 @@ module NodeInfo
     # Generate the NodeInfo document
     # @return [NodeInfo::Document]
     def document
-      Document.new(
-        version:            '2.1',
-        software:           build_software,
-        protocols:          config.protocols,
-        services:           build_services,
-        open_registrations: config.open_registrations,
-        usage:              build_usage,
-        metadata:           config.metadata
-      )
+      Document.new version:            '2.1',
+                   software:           build_software,
+                   protocols:          config.protocols,
+                   services:           build_services,
+                   open_registrations: config.open_registrations,
+                   usage:              build_usage,
+                   metadata:           config.metadata
     end
 
     # Generate the NodeInfo document as a hash

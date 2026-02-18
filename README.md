@@ -93,10 +93,10 @@ require 'node_info'
 
 # Create a server with configuration
 server = NodeInfo::Server.new do |config|
-  config.software_name       = 'myapp'
+  config.software_name       = 'example_app'
   config.software_version    = '1.0.0'
-  config.software_repository = 'https://github.com/example/myapp'
-  config.software_homepage   = 'https://myapp.example'
+  config.software_repository = 'https://github.com/xoengineering/example'
+  config.software_homepage   = 'https://example.com'
 
   config.protocols           = ['activitypub']
   config.services_inbound    = ['atom1.0']
@@ -104,18 +104,18 @@ server = NodeInfo::Server.new do |config|
   config.open_registrations  = true
 
   config.metadata = {
-    nodeName:        'My Cool Instance',
-    nodeDescription: 'A place for cool people'
+    nodeName:        'An example instance',
+    nodeDescription: 'An example place for exemplar people'
   }
 end
 
-# Generate the well-known response (/.well-known/nodeinfo)
-server.well_known_json 'https://myapp.example'
+# Generate the well-known response: /.well-known/nodeinfo
+server.well_known_json 'https://example.com'
 # => {
 #   "links": [
 #     {
 #       "rel": "http://nodeinfo.diaspora.software/ns/schema/2.1",
-#       "href": "https://myapp.example/nodeinfo/2.1"
+#       "href": "https://example.com/nodeinfo/2.1"
 #     }
 #   ]
 # }
@@ -129,7 +129,7 @@ server.to_json
 
 ```ruby
 server = NodeInfo::Server.new do |config|
-  config.software_name    = 'myapp'
+  config.software_name    = 'example_app'
   config.software_version = '1.0.0'
   config.protocols        = ['activitypub']
 
@@ -146,7 +146,7 @@ For production applications, you’ll want to compute statistics dynamically:
 
 ```ruby
 server = NodeInfo::Server.new do |config|
-  config.software_name    = 'myapp'
+  config.software_name    = 'example_app'
   config.software_version = '1.0.0'
   config.protocols        = ['activitypub']
 
@@ -182,10 +182,10 @@ require 'node_info'
 
 # Configure your server (perhaps in a config file or initializer)
 NODE_INFO_SERVER = NodeInfo::Server.new do |config|
-  config.software_name    = 'myapp'
+  config.software_name    = 'example_app'
   config.software_version = '1.0.0'
   config.protocols        = ['activitypub']
-  config.base_url         = 'https://myapp.example'
+  config.base_url         = 'https://example.com'
   config.usage_users      = -> { User.count }
 end
 
@@ -225,7 +225,7 @@ class NodeInfoController < ApplicationController
 
   def server
     @server ||= NodeInfo::Server.new do |config|
-      config.software_name            = 'myapp'
+      config.software_name            = 'example_app'
       config.software_version         = Rails.application.config.version
       config.protocols                = ['activitypub']
       config.open_registrations       = Rails.application.config.open_registrations
@@ -245,10 +245,10 @@ get '/.well-known/nodeinfo', to: 'node_info.well_known'
 get '/nodeinfo/2.1',         to: 'node_info.show'
 
 # app/actions/node_info/well_known.rb
-module MyApp
+module ExampleApp
   module Actions
     module NodeInfo
-      class WellKnown < MyApp::Action
+      class WellKnown < ExampleApp::Action
         def handle request, response
           server          = build_server
           response.format = :json
@@ -259,7 +259,7 @@ module MyApp
 
         def build_server
           NodeInfo::Server.new do |config|
-            config.software_name    = 'myapp'
+            config.software_name    = 'example_app'
             config.software_version = '1.0.0'
             config.protocols        = ['activitypub']
           end
@@ -276,11 +276,11 @@ end
 
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
+| `protocols` | Array | Yes | Supported protocols (e.g., `['activitypub']`) |
 | `software_name` | String | Yes | Name of your software |
 | `software_version` | String | Yes | Version of your software |
 | `software_repository` | String | No | URL to source code repository |
 | `software_homepage` | String | No | URL to software homepage |
-| `protocols` | Array | Yes | Supported protocols (e.g., `['activitypub']`) |
 | `services_inbound` | Array | No | Inbound services (e.g., `['atom1.0']`) |
 | `services_outbound` | Array | No | Outbound services (e.g., `['rss2.0']`) |
 | `open_registrations` | Boolean | No | Whether registrations are open (default: `false`) |

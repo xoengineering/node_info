@@ -27,15 +27,11 @@ module NodeInfo
   class << self
     # Create a new NodeInfo client
     # @return [NodeInfo::Client]
-    def client
-      Client.new
-    end
+    def client = Client.new
 
     # Create a new NodeInfo server
     # @yield [config] Configuration block
     # @return [NodeInfo::Server]
-    def server(&)
-      Server.new(&)
-    end
+    def server(&) = Server.new(&)
   end
 end

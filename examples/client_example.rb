@@ -15,7 +15,7 @@ client = NodeInfo::Client.new
 
 begin
   # Fetch NodeInfo
-  info = client.fetch(domain)
+  info = client.fetch domain
 
   # Display information
   puts 'Software:'
@@ -34,11 +34,11 @@ begin
   puts 'Services:'
   unless info.services.inbound.empty?
     puts '  Inbound:'
-    info.services.inbound.each { |s| puts "    - #{s}" }
+    info.services.inbound.each { puts "    - #{it}" }
   end
   unless info.services.outbound.empty?
     puts '  Outbound:'
-    info.services.outbound.each { |s| puts "    - #{s}" }
+    info.services.outbound.each { puts "    - #{it}" }
   end
   puts
 
@@ -47,11 +47,11 @@ begin
 
   if info.usage.users && !info.usage.users.empty?
     puts 'Usage Statistics:'
-    puts "  Total Users: #{info.usage.users[:total]}" if info.usage.users[:total]
-    puts "  Active This Month: #{info.usage.users[:activeMonth]}" if info.usage.users[:activeMonth]
+    puts "  Total Users: #{info.usage.users[:total]}"                   if info.usage.users[:total]
+    puts "  Active This Month: #{info.usage.users[:activeMonth]}"       if info.usage.users[:activeMonth]
     puts "  Active Last 6 Months: #{info.usage.users[:activeHalfyear]}" if info.usage.users[:activeHalfyear]
-    puts "  Local Posts: #{info.usage.local_posts}" if info.usage.local_posts
-    puts "  Local Comments: #{info.usage.local_comments}" if info.usage.local_comments
+    puts "  Local Posts: #{info.usage.local_posts}"                     if info.usage.local_posts
+    puts "  Local Comments: #{info.usage.local_comments}"               if info.usage.local_comments
     puts
   end
 

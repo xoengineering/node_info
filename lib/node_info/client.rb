@@ -10,6 +10,7 @@ module NodeInfo
   #   puts info.software.name
   class Client
     WELL_KNOWN_PATH = '/.well-known/nodeinfo'.freeze
+
     SUPPORTED_SCHEMAS = [
       'http://nodeinfo.diaspora.software/ns/schema/2.1',
       'http://nodeinfo.diaspora.software/ns/schema/2.0'
@@ -41,14 +42,14 @@ module NodeInfo
     # @return [String] The NodeInfo document URL
     # @raise [NodeInfo::DiscoveryError] If discovery fails
     def discover domain
-      url = normalize_url(domain, WELL_KNOWN_PATH)
+      url = normalize_url domain, WELL_KNOWN_PATH
 
       response = http_client.get(url)
 
       raise DiscoveryError, "HTTP #{response.code}" unless response.status.success?
 
-      links = parse_well_known(response.body.to_s)
-      find_nodeinfo_url(links)
+      links = parse_well_known response.body.to_s
+      find_nodeinfo_url links
     rescue HTTP::Error => e
       raise DiscoveryError, "HTTP request failed: #{e.message}"
     end
@@ -58,11 +59,11 @@ module NodeInfo
     # @return [NodeInfo::Document]
     # @raise [NodeInfo::FetchError] If fetching fails
     def fetch_document url
-      response = http_client.get(url)
+      response = http_client.get url
 
       raise FetchError, "HTTP #{response.code}" unless response.status.success?
 
-      Document.parse(response.body.to_s)
+      Document.parse response.body.to_s
     rescue HTTP::Error => e
       raise FetchError, "HTTP request failed: #{e.message}"
     end
@@ -70,16 +71,18 @@ module NodeInfo
     private
 
     def http_client
-      client = HTTP.timeout(timeout)
+      client = HTTP.timeout timeout
       client = client.follow if follow_redirects
       client
     end
 
     def normalize_url domain, path
       # Remove protocol if present
-      domain = domain.sub(%r{^https?://}, '')
+      domain = domain.sub %r{^https?://}, ''
+
       # Remove trailing slash
-      domain = domain.chomp('/')
+      domain = domain.chomp '/'
+
       # Add https protocol
       "https://#{domain}#{path}"
     end
@@ -99,7 +102,8 @@ module NodeInfo
     def find_nodeinfo_url links
       # Try to find a supported schema, preferring 2.1 over 2.0
       SUPPORTED_SCHEMAS.each do |schema|
-        link = links.find { |l| l['rel'] == schema }
+        link = links.find { it['rel'] == schema }
+
         return link['href'] if link && link['href']
       end
 

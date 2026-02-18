@@ -10,10 +10,10 @@ module NodeInfo
       attr_reader :name, :version, :repository, :homepage
 
       def initialize name:, version:, repository: nil, homepage: nil
-        @name = name
-        @version = version
+        @name       = name
+        @version    = version
         @repository = repository
-        @homepage = homepage
+        @homepage   = homepage
       end
 
       def to_h
@@ -31,16 +31,11 @@ module NodeInfo
       attr_reader :inbound, :outbound
 
       def initialize inbound: [], outbound: []
-        @inbound = inbound
+        @inbound  = inbound
         @outbound = outbound
       end
 
-      def to_h
-        {
-          inbound:  inbound,
-          outbound: outbound
-        }
-      end
+      def to_h = { inbound: inbound, outbound: outbound }
     end
 
     # Usage statistics
@@ -67,20 +62,18 @@ module NodeInfo
     # @return [NodeInfo::Document]
     def self.parse json
       data = json.is_a?(String) ? JSON.parse(json) : json
-      data = deep_stringify_keys(data)
+      data = deep_stringify_keys data
 
       metadata = data['metadata'] || {}
-      metadata = metadata.transform_keys(&:to_sym)
+      metadata = metadata.transform_keys &:to_sym
 
-      new(
-        version:            data['version'],
-        software:           parse_software(data['software']),
-        protocols:          data['protocols'],
-        services:           parse_services(data['services']),
-        open_registrations: data['openRegistrations'],
-        usage:              parse_usage(data['usage']),
-        metadata:           metadata
-      )
+      new version:            data['version'],
+          software:           parse_software(data['software']),
+          protocols:          data['protocols'],
+          services:           parse_services(data['services']),
+          open_registrations: data['openRegistrations'],
+          usage:              parse_usage(data['usage']),
+          metadata:           metadata
     rescue JSON::ParserError => e
       raise ParseError, "Invalid JSON: #{e.message}"
     rescue StandardError => e
@@ -88,15 +81,15 @@ module NodeInfo
     end
 
     # Initialize a new NodeInfo document
-    def initialize software:, protocols:, version: '2.1', services: nil,
-                   open_registrations: false, usage: nil, metadata: nil
-      @version = version
-      @software = software
+    def initialize software:, protocols:, open_registrations: false, metadata: nil, services: nil, usage: nil, version: '2.1'
+      @software  = software
       @protocols = protocols
-      @services = services || Services.new
+
+      @metadata           = metadata || {}
       @open_registrations = open_registrations
-      @usage = usage || Usage.new
-      @metadata = metadata || {}
+      @services           = services || Services.new
+      @usage              = usage    || Usage.new
+      @version            = version
 
       validate!
     end
@@ -117,9 +110,7 @@ module NodeInfo
 
     # Convert to JSON string
     # @return [String]
-    def to_json(*)
-      to_h.to_json(*)
-    end
+    def to_json(*) = to_h.to_json(*)
 
     class << self
       private
@@ -129,7 +120,7 @@ module NodeInfo
         when Hash
           obj.each_with_object({}) { |(k, v), h| h[k.to_s] = deep_stringify_keys(v) }
         when Array
-          obj.map { |v| deep_stringify_keys(v) }
+          obj.map { deep_stringify_keys it }
         else
           obj
         end
@@ -138,21 +129,17 @@ module NodeInfo
       def parse_software data
         return nil unless data
 
-        Software.new(
-          name:       data['name'],
-          version:    data['version'],
-          repository: data['repository'],
-          homepage:   data['homepage']
-        )
+        Software.new name:       data['name'],
+                     version:    data['version'],
+                     repository: data['repository'],
+                     homepage:   data['homepage']
       end
 
       def parse_services data
         return Services.new unless data
 
-        Services.new(
-          inbound:  data['inbound'] || [],
-          outbound: data['outbound'] || []
-        )
+        Services.new inbound:  data['inbound'] || [],
+                     outbound: data['outbound'] || []
       end
 
       def parse_usage data
@@ -161,23 +148,22 @@ module NodeInfo
         users = data['users'] || {}
         users = users.transform_keys(&:to_sym)
 
-        Usage.new(
-          users:          users,
-          local_posts:    data['localPosts'],
-          local_comments: data['localComments']
-        )
+        Usage.new users:          users,
+                  local_posts:    data['localPosts'],
+                  local_comments: data['localComments']
       end
     end
 
     private
 
     def validate!
-      raise ValidationError, 'version is required' if version.nil? || version.empty?
-      raise ValidationError, 'software is required' if software.nil?
-      raise ValidationError, 'software.name is required' if software.name.nil? || software.name.empty?
-      raise ValidationError, 'software.version is required' if software.version.nil? || software.version.empty?
-      raise ValidationError, 'protocols is required' if protocols.nil?
-      raise ValidationError, 'protocols must be an array' unless protocols.is_a?(Array)
+      raise ValidationError, 'version is required'                 if version.nil? || version.empty?
+      raise ValidationError, 'software is required'                if software.nil?
+      raise ValidationError, 'software.name is required'           if software.name.nil? || software.name.empty?
+      raise ValidationError, 'software.version is required'        if software.version.nil? || software.version.empty?
+      raise ValidationError, 'protocols is required'               if protocols.nil?
+
+      raise ValidationError, 'protocols must be an array'          unless protocols.is_a?(Array)
       raise ValidationError, 'openRegistrations must be a boolean' unless [true, false].include?(open_registrations)
     end
   end
