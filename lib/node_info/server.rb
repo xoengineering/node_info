@@ -47,13 +47,13 @@ module NodeInfo
           result[:total] = evaluate_value(users[:total]) if users[:total]
           result[:activeMonth] = evaluate_value(users[:activeMonth] || usage_users_active_month)
           result[:activeHalfyear] = evaluate_value(users[:activeHalfyear] || usage_users_active_halfyear)
-          result.compact
         else
           result = { total: evaluate_value(users) }
           result[:activeMonth] = evaluate_value(usage_users_active_month)
           result[:activeHalfyear] = evaluate_value(usage_users_active_halfyear)
-          result.compact
         end
+
+        result.compact
       end
 
       private

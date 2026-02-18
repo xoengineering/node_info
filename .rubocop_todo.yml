@@ -51,9 +51,3 @@ Metrics/ParameterLists:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/PerceivedComplexity:
   Max: 11
-
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/IdenticalConditionalBranches:
-  Exclude:
-    - "lib/node_info/server.rb"
