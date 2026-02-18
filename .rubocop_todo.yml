@@ -24,14 +24,6 @@ Lint/IneffectiveAccessModifier:
   Exclude:
     - "lib/node_info/document.rb"
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Lint/ScriptPermission:
-  Exclude:
-    - "bin/console"
-    - "examples/client_example.rb"
-    - "examples/server_example.rb"
-
 # Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
