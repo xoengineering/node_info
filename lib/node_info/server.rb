@@ -154,13 +154,19 @@ module NodeInfo
       }
 
       if config.usage_local_posts
-        usage_hash[:local_posts] = config.usage_local_posts.is_a?(Proc) ?
-          config.usage_local_posts.call : config.usage_local_posts
+        usage_hash[:local_posts] = if config.usage_local_posts.is_a?(Proc)
+                                     config.usage_local_posts.call
+                                   else
+                                     config.usage_local_posts
+                                   end
       end
 
       if config.usage_local_comments
-        usage_hash[:local_comments] = config.usage_local_comments.is_a?(Proc) ?
-          config.usage_local_comments.call : config.usage_local_comments
+        usage_hash[:local_comments] = if config.usage_local_comments.is_a?(Proc)
+                                        config.usage_local_comments.call
+                                      else
+                                        config.usage_local_comments
+                                      end
       end
 
       Document::Usage.new(**usage_hash)

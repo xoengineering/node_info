@@ -3,8 +3,7 @@ require 'json'
 module NodeInfo
   # Represents a NodeInfo 2.1 document
   class Document
-    attr_reader :version, :software, :protocols, :services, :open_registrations,
-                :usage, :metadata
+    attr_reader :version, :software, :protocols, :services, :open_registrations, :usage, :metadata
 
     # Software information
     class Software
