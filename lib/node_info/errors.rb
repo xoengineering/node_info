@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module NodeInfo
   # Base error class for all NodeInfo errors
   class Error < StandardError; end

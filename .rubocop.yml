@@ -36,4 +36,4 @@ Metrics/MethodLength:
 
 Style/FrozenStringLiteralComment:
   Enabled: true
-  EnforcedStyle: always
+  EnforcedStyle: never

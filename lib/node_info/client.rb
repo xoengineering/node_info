@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'http'
 require 'json'
 
@@ -11,7 +9,7 @@ module NodeInfo
   #   info = client.fetch("mastodon.social")
   #   puts info.software.name
   class Client
-    WELL_KNOWN_PATH = '/.well-known/nodeinfo'
+    WELL_KNOWN_PATH = '/.well-known/nodeinfo'.freeze
     SUPPORTED_SCHEMAS = [
       'http://nodeinfo.diaspora.software/ns/schema/2.1',
       'http://nodeinfo.diaspora.software/ns/schema/2.0'

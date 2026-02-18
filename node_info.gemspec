@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'lib/node_info/version'
 
 Gem::Specification.new do |spec|

@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # Example: Fetch NodeInfo from a Fediverse server
 #
 # Usage:

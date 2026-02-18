@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'node_info/version'
 require_relative 'node_info/client'
 require_relative 'node_info/server'
