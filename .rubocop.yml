@@ -1,5 +1,13 @@
 inherit_from: .rubocop_todo.yml
 
+plugins:
+  - rubocop-md
+  - rubocop-packaging
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+  - rubocop-thread_safety
+
 AllCops:
   TargetRubyVersion: 4.0
   NewCops: enable

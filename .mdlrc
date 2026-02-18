@@ -1,0 +1,4 @@
+# see: https://github.com/markdownlint/markdownlint/blob/main/docs/configuration.md
+
+git_recurse true
+style "#{File.dirname(__FILE__)}/markdownlint.rb"

@@ -2,14 +2,14 @@
 
 ## Installation & Setup
 
-```bash
+```sh
 cd node_info
 bundle install
 ```
 
 ## Running Tests
 
-```bash
+```sh
 # Run all tests
 bundle exec rspec
 
@@ -29,16 +29,19 @@ bundle exec rake
 ## Try the Examples
 
 ### Server Example
-```bash
+
+```sh
 ruby examples/server_example.rb
 ```
 
 This will show you:
+
 - The well-known NodeInfo response
 - A complete NodeInfo 2.1 document
 
 ### Client Example (requires network access)
-```bash
+
+```sh
 ruby examples/client_example.rb mastodon.social
 ```
 
@@ -46,16 +49,19 @@ This will fetch and display NodeInfo from mastodon.social.
 
 ## Interactive Console
 
-```bash
+```sh
 bin/console
 ```
 
 Then try:
+
 ```ruby
 # Create a client
+
 client = NodeInfo::Client.new
 
 # Create a server
+
 server = NodeInfo::Server.new do |config|
   config.software_name = "test"
   config.software_version = "1.0.0"
@@ -63,46 +69,48 @@ server = NodeInfo::Server.new do |config|
 end
 
 # Generate JSON
+
 puts server.to_json
 ```
 
 ## File Structure
 
-```
+```sh
 node_info/
 ├── lib/
-│   ├── node_info.rb              # Main module
+│   ├── node_info.rb         # Main module
 │   └── node_info/
-│       ├── version.rb             # Version constant
-│       ├── errors.rb              # Error classes
-│       ├── document.rb            # Document model
-│       ├── client.rb              # HTTP client
-│       └── server.rb              # Server/generator
+│       ├── version.rb       # Version constant
+│       ├── errors.rb        # Error classes
+│       ├── document.rb      # Document model
+│       ├── client.rb        # HTTP client
+│       └── server.rb        # Server/generator
 ├── spec/
-│   ├── spec_helper.rb             # RSpec config
-│   ├── integration_spec.rb        # End-to-end tests
+│   ├── spec_helper.rb       # RSpec config
+│   ├── integration_spec.rb  # End-to-end tests
 │   └── node_info/
-│       ├── document_spec.rb       # Document tests
-│       ├── client_spec.rb         # Client tests
-│       └── server_spec.rb         # Server tests
+│       ├── document_spec.rb # Document tests
+│       ├── client_spec.rb   # Client tests
+│       └── server_spec.rb   # Server tests
 ├── examples/
-│   ├── client_example.rb          # Client usage example
-│   └── server_example.rb          # Server usage example
+│   ├── client_example.rb    # Client usage example
+│   └── server_example.rb    # Server usage example
 ├── bin/
-│   ├── setup                      # Setup script
-│   └── console                    # Interactive console
-├── README.md                      # Full documentation
-├── CHANGELOG.md                   # Version history
-├── LICENSE.txt                    # MIT license
-├── Gemfile                        # Dependencies
-├── Rakefile                       # Rake tasks
-├── node_info.gemspec              # Gem specification
-└── .rubocop.yml                   # RuboCop config
+│   ├── setup        # Setup script
+│   └── console      # Interactive console
+├── README.md         # Full documentation
+├── CHANGELOG.md      # Version history
+├── LICENSE.txt       # MIT license
+├── Gemfile           # Dependencies
+├── Rakefile          # Rake tasks
+├── node_info.gemspec # Gem specification
+└── .rubocop.yml      # RuboCop config
 ```
 
 ## Key Classes
 
 ### `NodeInfo::Client`
+
 HTTP client for fetching NodeInfo from servers.
 
 ```ruby
@@ -111,6 +119,7 @@ info = client.fetch("mastodon.social")
 ```
 
 ### `NodeInfo::Server`
+
 Generate NodeInfo documents for your server.
 
 ```ruby
@@ -124,6 +133,7 @@ server.to_json  # Returns NodeInfo JSON
 ```
 
 ### `NodeInfo::Document`
+
 Represents a parsed NodeInfo document.
 
 ```ruby
@@ -136,7 +146,7 @@ doc.protocols         # => ["activitypub"]
 
 When ready to publish:
 
-```bash
+```sh
 # Build the gem
 gem build node_info.gemspec
 
@@ -154,7 +164,9 @@ gem push node_info-0.1.0.gem
 ## Common Tasks
 
 ### Update Version
+
 Edit `lib/node_info/version.rb`:
+
 ```ruby
 module NodeInfo
   VERSION = "0.2.0"
@@ -162,6 +174,7 @@ end
 ```
 
 ### Add New Feature
+
 1. Write tests in `spec/node_info/`
 2. Implement in `lib/node_info/`
 3. Update `README.md` with examples
@@ -169,7 +182,8 @@ end
 5. Update `CHANGELOG.md`
 
 ### Fix RuboCop Issues
-```bash
+
+```sh
 # Auto-fix what can be fixed
 bundle exec rubocop -a
 

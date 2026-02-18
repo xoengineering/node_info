@@ -10,6 +10,7 @@ and this gem uses to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.1.0] - 2026-02-17
 
 ### Added
+
 - Initial release
 - NodeInfo 2.1 client implementation
 - NodeInfo 2.1 server implementation

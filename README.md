@@ -4,9 +4,9 @@
 is a standardized way for Fediverse servers to expose metadata about themselves,
 including software information, supported protocols, usage statistics, and more.
 
-A pure Ruby implementation of the NodeInfo protocol for the Fediverse, 
-providing both client and server functionality. 
-This gem implements NodeInfo 2.1 as specified in 
+A pure Ruby implementation of the NodeInfo protocol for the Fediverse,
+providing both client and server functionality.
+This gem implements NodeInfo 2.1 as specified in
 [FEP-f1d5](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md).
 
 ## Features
@@ -132,7 +132,7 @@ server = NodeInfo::Server.new do |config|
   config.software_name    = 'myapp'
   config.software_version = '1.0.0'
   config.protocols        = ['activitypub']
-  
+
   # Static values
   config.usage_users          = { total: 100, activeMonth: 50, activeHalfyear: 75 }
   config.usage_local_posts    = 1000
@@ -149,7 +149,7 @@ server = NodeInfo::Server.new do |config|
   config.software_name    = 'myapp'
   config.software_version = '1.0.0'
   config.protocols        = ['activitypub']
-  
+
   # Use procs to compute values dynamically
   config.usage_users                 = -> { User.count }
   config.usage_users_active_month    = -> { User.active_last_month.count }
@@ -323,27 +323,27 @@ end
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. 
-Then, run `rake spec` to run the tests. 
+After checking out the repo, run `bin/setup` to install dependencies.
+Then, run `rake spec` to run the tests.
 You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 
 ### Running Tests
 
-```bash
+```sh
 bundle exec rspec
 ```
 
 ### Running RuboCop
 
-```bash
+```sh
 bundle exec rubocop
 ```
 
 ### Running All Checks
 
-```bash
+```sh
 bundle exec rake
 ```
 
