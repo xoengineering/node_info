@@ -71,7 +71,7 @@ module NodeInfo
       data = deep_stringify_keys(data)
 
       metadata = data['metadata'] || {}
-      metadata = metadata.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+      metadata = metadata.transform_keys(&:to_sym)
 
       new(
         version: data['version'],
@@ -159,7 +159,7 @@ module NodeInfo
       return Usage.new unless data
 
       users = data['users'] || {}
-      users = users.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+      users = users.transform_keys(&:to_sym)
 
       Usage.new(
         users: users,
