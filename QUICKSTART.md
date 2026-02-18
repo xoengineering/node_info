@@ -63,9 +63,9 @@ client = NodeInfo::Client.new
 # Create a server
 
 server = NodeInfo::Server.new do |config|
-  config.software_name = "test"
-  config.software_version = "1.0.0"
-  config.protocols = ["activitypub"]
+  config.software_name    = 'test'
+  config.software_version = '1.0.0'
+  config.protocols        = ['activitypub']
 end
 
 # Generate JSON
@@ -115,7 +115,7 @@ HTTP client for fetching NodeInfo from servers.
 
 ```ruby
 client = NodeInfo::Client.new
-info = client.fetch("mastodon.social")
+info = client.fetch 'mastodon.social'
 ```
 
 ### `NodeInfo::Server`
@@ -124,9 +124,9 @@ Generate NodeInfo documents for your server.
 
 ```ruby
 server = NodeInfo::Server.new do |config|
-  config.software_name = "myapp"
-  config.software_version = "1.0.0"
-  config.protocols = ["activitypub"]
+  config.software_name    = 'myapp'
+  config.software_version = '1.0.0'
+  config.protocols        = ['activitypub']
 end
 
 server.to_json  # Returns NodeInfo JSON
@@ -138,8 +138,8 @@ Represents a parsed NodeInfo document.
 
 ```ruby
 doc = NodeInfo::Document.parse(json_string)
-doc.software.name     # => "mastodon"
-doc.protocols         # => ["activitypub"]
+doc.software.name # => "mastodon"
+doc.protocols     # => ["activitypub"]
 ```
 
 ## Publishing the Gem
@@ -169,7 +169,7 @@ Edit `lib/node_info/version.rb`:
 
 ```ruby
 module NodeInfo
-  VERSION = "0.2.0"
+  VERSION = '0.2.0'
 end
 ```
 
