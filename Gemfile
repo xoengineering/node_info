@@ -4,13 +4,14 @@ gemspec
 
 gem 'bundler', '~> 4.0'
 gem 'irb',     '~> 1.17'
-gem 'rake',    '~> 13.0'
+gem 'rake',    '~> 13.3'
 gem 'rspec',   '~> 3.13'
-gem 'webmock', '~> 3.0'
+gem 'webmock', '~> 3.26'
 
-# Linters
+# Markdown linter
 gem 'mdl', '~> 0.15.0'
 
+# Ruby linters
 gem 'rubocop',               '~> 1.84', require: false
 gem 'rubocop-md',            '~> 2.0',  require: false
 gem 'rubocop-packaging',     '~> 0.6',  require: false
