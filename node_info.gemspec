@@ -22,12 +22,14 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version             = '>= 4.0.0'
 
   # Specify which files should be added to the gem when it is released.
-  spec.files = Dir.glob(%w[
-                          lib/**/*.rb
-                          CHANGELOG.md
-                          LICENSE.txt
-                          README.md
-                        ]).reject { File.directory? it }
+  spec.files = Dir.glob(
+    %w[
+      lib/**/*.rb
+      CHANGELOG.md
+      LICENSE.txt
+      README.md
+    ]
+  ).reject { File.directory? it }
 
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{\Aexe/}) { File.basename it }
