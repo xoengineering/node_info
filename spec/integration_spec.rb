@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'NodeInfo integration' do
+RSpec.describe 'NodeInfo integration' do # rubocop:disable RSpec/DescribeClass
   describe 'complete client/server workflow' do
     let(:base_url) { 'https://example.com' }
     let(:well_known_url) { "#{base_url}/.well-known/nodeinfo" }

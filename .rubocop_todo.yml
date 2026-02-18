@@ -29,12 +29,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 1
-# Configuration parameters: IgnoredMetadata.
-RSpec/DescribeClass:
-  Exclude:
-    - "spec/integration_spec.rb"
-
 # Offense count: 27
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
