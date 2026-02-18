@@ -20,7 +20,7 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: single_quotes
 
 Layout/LineLength:
-  Max: 120
+  Max: 140
   AllowedPatterns:
     - '\A\s*#'
 
