@@ -1,17 +1,20 @@
 # NodeInfo
 
-A pure Ruby implementation of the [NodeInfo protocol](https://nodeinfo.diaspora.software/) for the Fediverse, providing both client and server functionality. This gem implements NodeInfo 2.1 as specified in [FEP-f1d5](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md).
+[NodeInfo](https://nodeinfo.diaspora.software)
+is a standardized way for Fediverse servers to expose metadata about themselves,
+including software information, supported protocols, usage statistics, and more.
 
-NodeInfo is a standardized way for Fediverse servers to expose metadata about themselves, including software information, supported protocols, usage statistics, and more.
+A pure Ruby implementation of the NodeInfo protocol for the Fediverse, 
+providing both client and server functionality. 
+This gem implements NodeInfo 2.1 as specified in 
+[FEP-f1d5](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md).
 
 ## Features
 
-- ✅ **Pure Ruby** - Zero Rails dependency, works with any Ruby framework or plain scripts
-- 🔍 **Client** - Discover and fetch NodeInfo from any Fediverse server
-- 🖥️ **Server** - Serve your own NodeInfo documents
-- 📊 **Dynamic Stats** - Support for static values or dynamic procs for usage statistics
-- 🧪 **Well Tested** - Comprehensive RSpec test suite
-- 📝 **Well Documented** - Clear API documentation and examples
+- Pure Ruby     - Works with any Ruby framework or plain scripts
+- Client        - Discover and fetch `NodeInfo` from any Fediverse server
+- Server        - Serve your own `NodeInfo` documents
+- Dynamic Stats - Support for static values or dynamic procs for usage statistics
 
 ## Installation
 
@@ -49,15 +52,15 @@ client = NodeInfo::Client.new
 info = client.fetch 'mastodon.social'
 
 # Access the information
-puts info.software.name       # => 'mastodon'
-puts info.software.version    # => '4.2.0'
-puts info.protocols           # => ['activitypub']
-puts info.open_registrations  # => true
+puts info.software.name      # => 'mastodon'
+puts info.software.version   # => '4.2.0'
+puts info.protocols          # => ['activitypub']
+puts info.open_registrations # => true
 
 # Access usage statistics
-puts info.usage.users[:total]        # => 1000000
-puts info.usage.users[:activeMonth]  # => 50000
-puts info.usage.local_posts          # => 5000000
+puts info.usage.users[:total]       # => 1000000
+puts info.usage.users[:activeMonth] # => 50000
+puts info.usage.local_posts         # => 5000000
 ```
 
 #### Discovery and Fetching Separately
@@ -94,15 +97,14 @@ server = NodeInfo::Server.new do |config|
   config.software_version    = '1.0.0'
   config.software_repository = 'https://github.com/example/myapp'
   config.software_homepage   = 'https://myapp.example'
-  
-  config.protocols         = ['activitypub']
-  config.services_inbound  = ['atom1.0']
-  config.services_outbound = ['rss2.0', 'atom1.0']
-  
-  config.open_registrations = true
-  
+
+  config.protocols           = ['activitypub']
+  config.services_inbound    = ['atom1.0']
+  config.services_outbound   = ['rss2.0', 'atom1.0']
+  config.open_registrations  = true
+
   config.metadata = {
-    nodeName: 'My Cool Instance',
+    nodeName:        'My Cool Instance',
     nodeDescription: 'A place for cool people'
   }
 end
@@ -140,7 +142,7 @@ end
 
 #### Dynamic Usage Statistics
 
-For production applications, you'll want to compute statistics dynamically:
+For production applications, you’ll want to compute statistics dynamically:
 
 ```ruby
 server = NodeInfo::Server.new do |config|
