@@ -11,44 +11,26 @@
 # SupportedStyles: Gemfile, gems.rb, gemspec
 Gemspec/DevelopmentDependencies:
   Exclude:
-    - 'node_info.gemspec'
+    - "node_info.gemspec"
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Gemspec/RequireMFA:
   Exclude:
-    - 'node_info.gemspec'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/FirstArrayElementIndentation:
-  EnforcedStyle: consistent
-
-# Offense count: 33
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'lib/node_info/client.rb'
-    - 'spec/integration_spec.rb'
-    - 'spec/node_info/client_spec.rb'
-    - 'spec/node_info/document_spec.rb'
-    - 'spec/node_info/server_spec.rb'
+    - "node_info.gemspec"
 
 # Offense count: 4
 Lint/IneffectiveAccessModifier:
   Exclude:
-    - 'lib/node_info/document.rb'
+    - "lib/node_info/document.rb"
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 Lint/ScriptPermission:
   Exclude:
-    - 'bin/console'
-    - 'examples/client_example.rb'
-    - 'examples/server_example.rb'
+    - "bin/console"
+    - "examples/client_example.rb"
+    - "examples/server_example.rb"
 
 # Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -76,7 +58,7 @@ Metrics/PerceivedComplexity:
 # SupportedStyles: anonymous, explicit
 Naming/BlockForwarding:
   Exclude:
-    - 'lib/node_info.rb'
+    - "lib/node_info.rb"
 
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
@@ -86,33 +68,33 @@ Naming/BlockForwarding:
 # RedundantBlockArgumentNames: blk, block, proc
 Style/ArgumentsForwarding:
   Exclude:
-    - 'lib/node_info.rb'
-    - 'lib/node_info/document.rb'
-    - 'lib/node_info/server.rb'
+    - "lib/node_info.rb"
+    - "lib/node_info/document.rb"
+    - "lib/node_info/server.rb"
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/HashTransformKeys:
   Exclude:
-    - 'lib/node_info/document.rb'
+    - "lib/node_info/document.rb"
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/IdenticalConditionalBranches:
   Exclude:
-    - 'lib/node_info/server.rb'
+    - "lib/node_info/server.rb"
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/KeywordParametersOrder:
   Exclude:
-    - 'lib/node_info/document.rb'
+    - "lib/node_info/document.rb"
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Style/MultilineTernaryOperator:
   Exclude:
-    - 'lib/node_info/server.rb'
+    - "lib/node_info/server.rb"
 
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).

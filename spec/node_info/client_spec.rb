@@ -146,7 +146,7 @@ RSpec.describe NodeInfo::Client do
         .to_return(status: 200, body: nodeinfo_response)
 
       doc = client.fetch_document(nodeinfo_url)
-      
+
       expect(doc).to be_a(NodeInfo::Document)
       expect(doc.software.name).to eq('mastodon')
       expect(doc.software.version).to eq('4.2.0')
@@ -176,7 +176,7 @@ RSpec.describe NodeInfo::Client do
         .to_return(status: 200, body: nodeinfo_response)
 
       doc = client.fetch(domain)
-      
+
       expect(doc).to be_a(NodeInfo::Document)
       expect(doc.software.name).to eq('mastodon')
     end

@@ -96,7 +96,7 @@ RSpec.describe NodeInfo::Document do
 
     it 'validates software.name' do
       software = NodeInfo::Document::Software.new(name: '', version: '1.0')
-      
+
       expect do
         described_class.new(software: software, protocols: [])
       end.to raise_error(NodeInfo::ValidationError, /software.name is required/)
@@ -104,7 +104,7 @@ RSpec.describe NodeInfo::Document do
 
     it 'validates protocols is an array' do
       software = NodeInfo::Document::Software.new(name: 'test', version: '1.0')
-      
+
       expect do
         described_class.new(software: software, protocols: 'activitypub')
       end.to raise_error(NodeInfo::ValidationError, /protocols must be an array/)
@@ -112,7 +112,7 @@ RSpec.describe NodeInfo::Document do
 
     it 'validates openRegistrations is a boolean' do
       software = NodeInfo::Document::Software.new(name: 'test', version: '1.0')
-      
+
       expect do
         described_class.new(
           software: software,
@@ -149,7 +149,7 @@ RSpec.describe NodeInfo::Document do
   describe NodeInfo::Document::Software do
     it 'creates software info with required fields' do
       software = described_class.new(name: 'test', version: '1.0.0')
-      
+
       expect(software.name).to eq('test')
       expect(software.version).to eq('1.0.0')
       expect(software.repository).to be_nil
@@ -163,7 +163,7 @@ RSpec.describe NodeInfo::Document do
         repository: 'https://github.com/test/test',
         homepage: 'https://test.example'
       )
-      
+
       expect(software.repository).to eq('https://github.com/test/test')
       expect(software.homepage).to eq('https://test.example')
     end
@@ -174,7 +174,7 @@ RSpec.describe NodeInfo::Document do
         version: '1.0.0',
         repository: 'https://github.com/test/test'
       )
-      
+
       hash = software.to_h
       expect(hash[:name]).to eq('test')
       expect(hash[:version]).to eq('1.0.0')
@@ -186,7 +186,7 @@ RSpec.describe NodeInfo::Document do
   describe NodeInfo::Document::Services do
     it 'creates empty services' do
       services = described_class.new
-      
+
       expect(services.inbound).to eq([])
       expect(services.outbound).to eq([])
     end
@@ -196,7 +196,7 @@ RSpec.describe NodeInfo::Document do
         inbound: ['atom1.0'],
         outbound: ['atom1.0', 'rss2.0']
       )
-      
+
       expect(services.inbound).to eq(['atom1.0'])
       expect(services.outbound).to eq(['atom1.0', 'rss2.0'])
     end
@@ -205,7 +205,7 @@ RSpec.describe NodeInfo::Document do
   describe NodeInfo::Document::Usage do
     it 'creates empty usage' do
       usage = described_class.new
-      
+
       expect(usage.users).to eq({})
       expect(usage.local_posts).to be_nil
       expect(usage.local_comments).to be_nil
@@ -217,7 +217,7 @@ RSpec.describe NodeInfo::Document do
         local_posts: 1000,
         local_comments: 500
       )
-      
+
       expect(usage.users[:total]).to eq(100)
       expect(usage.local_posts).to eq(1000)
     end

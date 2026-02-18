@@ -42,9 +42,9 @@ module NodeInfo
     # @raise [NodeInfo::DiscoveryError] If discovery fails
     def discover(domain)
       url = normalize_url(domain, WELL_KNOWN_PATH)
-      
+
       response = http_client.get(url)
-      
+
       raise DiscoveryError, "HTTP #{response.code}" unless response.status.success?
 
       links = parse_well_known(response.body.to_s)
@@ -59,7 +59,7 @@ module NodeInfo
     # @raise [NodeInfo::FetchError] If fetching fails
     def fetch_document(url)
       response = http_client.get(url)
-      
+
       raise FetchError, "HTTP #{response.code}" unless response.status.success?
 
       Document.parse(response.body.to_s)
@@ -87,10 +87,10 @@ module NodeInfo
     def parse_well_known(body)
       data = JSON.parse(body)
       links = data['links']
-      
+
       raise DiscoveryError, 'No links found in well-known document' unless links
       raise DiscoveryError, 'Links must be an array' unless links.is_a?(Array)
-      
+
       links
     rescue JSON::ParserError => e
       raise DiscoveryError, "Invalid JSON in well-known document: #{e.message}"

@@ -44,7 +44,7 @@ RSpec.describe NodeInfo::Server do
 
     it 'generates well-known response with base_url parameter' do
       result = server.well_known('https://example.com')
-      
+
       expect(result[:links]).to be_an(Array)
       expect(result[:links].first[:rel]).to eq('http://nodeinfo.diaspora.software/ns/schema/2.1')
       expect(result[:links].first[:href]).to eq('https://example.com/nodeinfo/2.1')
@@ -53,7 +53,7 @@ RSpec.describe NodeInfo::Server do
     it 'uses config.base_url if no parameter provided' do
       server.config.base_url = 'https://configured.example'
       result = server.well_known
-      
+
       expect(result[:links].first[:href]).to eq('https://configured.example/nodeinfo/2.1')
     end
 
@@ -75,7 +75,7 @@ RSpec.describe NodeInfo::Server do
     it 'generates well-known JSON' do
       json = server.well_known_json
       data = JSON.parse(json)
-      
+
       expect(data['links']).to be_an(Array)
       expect(data['links'].first['href']).to eq('https://example.com/nodeinfo/2.1')
     end
@@ -95,7 +95,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       doc = server.document
-      
+
       expect(doc).to be_a(NodeInfo::Document)
       expect(doc.version).to eq('2.1')
       expect(doc.software.name).to eq('myapp')
@@ -119,7 +119,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       doc = server.document
-      
+
       expect(doc.usage.users[:total]).to eq(100)
       expect(doc.usage.users[:activeMonth]).to eq(50)
       expect(doc.usage.users[:activeHalfyear]).to eq(75)
@@ -130,7 +130,7 @@ RSpec.describe NodeInfo::Server do
     it 'supports dynamic usage values with procs' do
       user_count = 100
       active_count = 50
-      
+
       server = described_class.new do |config|
         config.software_name = 'myapp'
         config.software_version = '1.0.0'
@@ -141,7 +141,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       doc = server.document
-      
+
       expect(doc.usage.users[:total]).to eq(100)
       expect(doc.usage.users[:activeMonth]).to eq(50)
       expect(doc.usage.local_posts).to eq(1000)
@@ -149,7 +149,7 @@ RSpec.describe NodeInfo::Server do
       # Values are dynamic
       user_count = 200
       active_count = 100
-      
+
       doc2 = server.document
       expect(doc2.usage.users[:total]).to eq(200)
       expect(doc2.usage.users[:activeMonth]).to eq(100)
@@ -167,7 +167,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       doc = server.document
-      
+
       expect(doc.usage.users[:total]).to eq(100)
       expect(doc.usage.users[:activeMonth]).to eq(50)
     end
@@ -184,7 +184,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       doc = server.document
-      
+
       expect(doc.metadata[:nodeName]).to eq('My Cool Instance')
       expect(doc.metadata[:nodeDescription]).to eq('A place for cool people')
     end
@@ -199,7 +199,7 @@ RSpec.describe NodeInfo::Server do
       end
 
       hash = server.to_h
-      
+
       expect(hash[:version]).to eq('2.1')
       expect(hash[:software][:name]).to eq('myapp')
       expect(hash[:protocols]).to eq(['activitypub'])
@@ -217,7 +217,7 @@ RSpec.describe NodeInfo::Server do
 
       json = server.to_json
       data = JSON.parse(json)
-      
+
       expect(data['version']).to eq('2.1')
       expect(data['software']['name']).to eq('myapp')
       expect(data['software']['version']).to eq('1.0.0')

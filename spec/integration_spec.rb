@@ -22,7 +22,7 @@ RSpec.describe 'NodeInfo integration' do
       # Step 2: Generate well-known response
       well_known_json = server.well_known_json(base_url)
       well_known_data = JSON.parse(well_known_json)
-      
+
       expect(well_known_data['links']).to be_an(Array)
       expect(well_known_data['links'].first['rel']).to eq('http://nodeinfo.diaspora.software/ns/schema/2.1')
       expect(well_known_data['links'].first['href']).to eq(nodeinfo_url)
@@ -30,7 +30,7 @@ RSpec.describe 'NodeInfo integration' do
       # Step 3: Generate NodeInfo document
       nodeinfo_json = server.to_json
       nodeinfo_data = JSON.parse(nodeinfo_json)
-      
+
       expect(nodeinfo_data['version']).to eq('2.1')
       expect(nodeinfo_data['software']['name']).to eq('testapp')
       expect(nodeinfo_data['software']['version']).to eq('2.0.0')
@@ -46,14 +46,14 @@ RSpec.describe 'NodeInfo integration' do
 
       # Step 5: Client fetches the data
       client = NodeInfo::Client.new
-      
+
       # Discover NodeInfo URL
       discovered_url = client.discover('example.com')
       expect(discovered_url).to eq(nodeinfo_url)
 
       # Fetch the document
       info = client.fetch('example.com')
-      
+
       # Step 6: Verify client parsed everything correctly
       expect(info).to be_a(NodeInfo::Document)
       expect(info.software.name).to eq('testapp')
