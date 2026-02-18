@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "node_info/version"
-require_relative "node_info/client"
-require_relative "node_info/server"
-require_relative "node_info/document"
-require_relative "node_info/errors"
+require_relative 'node_info/version'
+require_relative 'node_info/client'
+require_relative 'node_info/server'
+require_relative 'node_info/document'
+require_relative 'node_info/errors'
 
 # NodeInfo protocol implementation for the Fediverse
 #

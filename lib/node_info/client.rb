@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "http"
-require "json"
+require 'http'
+require 'json'
 
 module NodeInfo
   # Client for discovering and fetching NodeInfo from Fediverse servers
@@ -11,10 +11,10 @@ module NodeInfo
   #   info = client.fetch("mastodon.social")
   #   puts info.software.name
   class Client
-    WELL_KNOWN_PATH = "/.well-known/nodeinfo"
+    WELL_KNOWN_PATH = '/.well-known/nodeinfo'
     SUPPORTED_SCHEMAS = [
-      "http://nodeinfo.diaspora.software/ns/schema/2.1",
-      "http://nodeinfo.diaspora.software/ns/schema/2.0"
+      'http://nodeinfo.diaspora.software/ns/schema/2.1',
+      'http://nodeinfo.diaspora.software/ns/schema/2.0'
     ].freeze
 
     attr_reader :timeout, :follow_redirects
@@ -79,19 +79,19 @@ module NodeInfo
 
     def normalize_url(domain, path)
       # Remove protocol if present
-      domain = domain.sub(%r{^https?://}, "")
+      domain = domain.sub(%r{^https?://}, '')
       # Remove trailing slash
-      domain = domain.chomp("/")
+      domain = domain.chomp('/')
       # Add https protocol
       "https://#{domain}#{path}"
     end
 
     def parse_well_known(body)
       data = JSON.parse(body)
-      links = data["links"]
+      links = data['links']
       
-      raise DiscoveryError, "No links found in well-known document" unless links
-      raise DiscoveryError, "Links must be an array" unless links.is_a?(Array)
+      raise DiscoveryError, 'No links found in well-known document' unless links
+      raise DiscoveryError, 'Links must be an array' unless links.is_a?(Array)
       
       links
     rescue JSON::ParserError => e
@@ -101,11 +101,11 @@ module NodeInfo
     def find_nodeinfo_url(links)
       # Try to find a supported schema, preferring 2.1 over 2.0
       SUPPORTED_SCHEMAS.each do |schema|
-        link = links.find { |l| l["rel"] == schema }
-        return link["href"] if link && link["href"]
+        link = links.find { |l| l['rel'] == schema }
+        return link['href'] if link && link['href']
       end
 
-      raise DiscoveryError, "No supported NodeInfo schema found"
+      raise DiscoveryError, 'No supported NodeInfo schema found'
     end
   end
 end

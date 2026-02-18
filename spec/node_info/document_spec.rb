@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe NodeInfo::Document do
   let(:valid_data) do
     {
-      version: "2.1",
+      version: '2.1',
       software: {
-        name: "mastodon",
-        version: "4.2.0",
-        repository: "https://github.com/mastodon/mastodon",
-        homepage: "https://joinmastodon.org"
+        name: 'mastodon',
+        version: '4.2.0',
+        repository: 'https://github.com/mastodon/mastodon',
+        homepage: 'https://joinmastodon.org'
       },
-      protocols: ["activitypub"],
+      protocols: ['activitypub'],
       services: {
         inbound: [],
         outbound: []
@@ -28,39 +28,39 @@ RSpec.describe NodeInfo::Document do
         localComments: 5000
       },
       metadata: {
-        nodeName: "My Instance"
+        nodeName: 'My Instance'
       }
     }
   end
 
-  describe ".parse" do
-    it "parses valid JSON string" do
+  describe '.parse' do
+    it 'parses valid JSON string' do
       json = valid_data.to_json
       doc = described_class.parse(json)
 
-      expect(doc.version).to eq("2.1")
-      expect(doc.software.name).to eq("mastodon")
-      expect(doc.software.version).to eq("4.2.0")
-      expect(doc.protocols).to eq(["activitypub"])
+      expect(doc.version).to eq('2.1')
+      expect(doc.software.name).to eq('mastodon')
+      expect(doc.software.version).to eq('4.2.0')
+      expect(doc.protocols).to eq(['activitypub'])
       expect(doc.open_registrations).to be true
     end
 
-    it "parses valid hash" do
+    it 'parses valid hash' do
       doc = described_class.parse(valid_data)
 
-      expect(doc.version).to eq("2.1")
-      expect(doc.software.name).to eq("mastodon")
+      expect(doc.version).to eq('2.1')
+      expect(doc.software.name).to eq('mastodon')
     end
 
-    it "raises ParseError for invalid JSON" do
-      expect { described_class.parse("invalid json") }.to raise_error(NodeInfo::ParseError)
+    it 'raises ParseError for invalid JSON' do
+      expect { described_class.parse('invalid json') }.to raise_error(NodeInfo::ParseError)
     end
 
-    it "parses minimal document" do
+    it 'parses minimal document' do
       minimal = {
-        version: "2.1",
-        software: { name: "test", version: "1.0" },
-        protocols: ["activitypub"],
+        version: '2.1',
+        software: { name: 'test', version: '1.0' },
+        protocols: ['activitypub'],
         services: { inbound: [], outbound: [] },
         openRegistrations: false,
         usage: { users: {} },
@@ -68,144 +68,144 @@ RSpec.describe NodeInfo::Document do
       }
 
       doc = described_class.parse(minimal)
-      expect(doc.software.name).to eq("test")
+      expect(doc.software.name).to eq('test')
     end
   end
 
-  describe "#initialize" do
-    it "creates a valid document" do
+  describe '#initialize' do
+    it 'creates a valid document' do
       software = NodeInfo::Document::Software.new(
-        name: "test",
-        version: "1.0.0"
+        name: 'test',
+        version: '1.0.0'
       )
 
       doc = described_class.new(
         software: software,
-        protocols: ["activitypub"]
+        protocols: ['activitypub']
       )
 
-      expect(doc.version).to eq("2.1")
-      expect(doc.software.name).to eq("test")
-      expect(doc.protocols).to eq(["activitypub"])
+      expect(doc.version).to eq('2.1')
+      expect(doc.software.name).to eq('test')
+      expect(doc.protocols).to eq(['activitypub'])
       expect(doc.open_registrations).to be false
     end
 
-    it "validates required fields" do
+    it 'validates required fields' do
       expect do
         described_class.new(software: nil, protocols: [])
       end.to raise_error(NodeInfo::ValidationError, /software is required/)
     end
 
-    it "validates software.name" do
-      software = NodeInfo::Document::Software.new(name: "", version: "1.0")
+    it 'validates software.name' do
+      software = NodeInfo::Document::Software.new(name: '', version: '1.0')
       
       expect do
         described_class.new(software: software, protocols: [])
       end.to raise_error(NodeInfo::ValidationError, /software.name is required/)
     end
 
-    it "validates protocols is an array" do
-      software = NodeInfo::Document::Software.new(name: "test", version: "1.0")
+    it 'validates protocols is an array' do
+      software = NodeInfo::Document::Software.new(name: 'test', version: '1.0')
       
       expect do
-        described_class.new(software: software, protocols: "activitypub")
+        described_class.new(software: software, protocols: 'activitypub')
       end.to raise_error(NodeInfo::ValidationError, /protocols must be an array/)
     end
 
-    it "validates openRegistrations is a boolean" do
-      software = NodeInfo::Document::Software.new(name: "test", version: "1.0")
+    it 'validates openRegistrations is a boolean' do
+      software = NodeInfo::Document::Software.new(name: 'test', version: '1.0')
       
       expect do
         described_class.new(
           software: software,
           protocols: [],
-          open_registrations: "yes"
+          open_registrations: 'yes'
         )
       end.to raise_error(NodeInfo::ValidationError, /openRegistrations must be a boolean/)
     end
   end
 
-  describe "#to_h" do
-    it "converts to hash with camelCase keys" do
+  describe '#to_h' do
+    it 'converts to hash with camelCase keys' do
       doc = described_class.parse(valid_data)
       hash = doc.to_h
 
-      expect(hash[:version]).to eq("2.1")
-      expect(hash[:software][:name]).to eq("mastodon")
+      expect(hash[:version]).to eq('2.1')
+      expect(hash[:software][:name]).to eq('mastodon')
       expect(hash[:openRegistrations]).to be true
       expect(hash[:usage][:localPosts]).to eq(10000)
     end
   end
 
-  describe "#to_json" do
-    it "converts to JSON string" do
+  describe '#to_json' do
+    it 'converts to JSON string' do
       doc = described_class.parse(valid_data)
       json_string = doc.to_json
 
       parsed = JSON.parse(json_string)
-      expect(parsed["version"]).to eq("2.1")
-      expect(parsed["software"]["name"]).to eq("mastodon")
+      expect(parsed['version']).to eq('2.1')
+      expect(parsed['software']['name']).to eq('mastodon')
     end
   end
 
   describe NodeInfo::Document::Software do
-    it "creates software info with required fields" do
-      software = described_class.new(name: "test", version: "1.0.0")
+    it 'creates software info with required fields' do
+      software = described_class.new(name: 'test', version: '1.0.0')
       
-      expect(software.name).to eq("test")
-      expect(software.version).to eq("1.0.0")
+      expect(software.name).to eq('test')
+      expect(software.version).to eq('1.0.0')
       expect(software.repository).to be_nil
       expect(software.homepage).to be_nil
     end
 
-    it "creates software info with all fields" do
+    it 'creates software info with all fields' do
       software = described_class.new(
-        name: "test",
-        version: "1.0.0",
-        repository: "https://github.com/test/test",
-        homepage: "https://test.example"
+        name: 'test',
+        version: '1.0.0',
+        repository: 'https://github.com/test/test',
+        homepage: 'https://test.example'
       )
       
-      expect(software.repository).to eq("https://github.com/test/test")
-      expect(software.homepage).to eq("https://test.example")
+      expect(software.repository).to eq('https://github.com/test/test')
+      expect(software.homepage).to eq('https://test.example')
     end
 
-    it "converts to hash" do
+    it 'converts to hash' do
       software = described_class.new(
-        name: "test",
-        version: "1.0.0",
-        repository: "https://github.com/test/test"
+        name: 'test',
+        version: '1.0.0',
+        repository: 'https://github.com/test/test'
       )
       
       hash = software.to_h
-      expect(hash[:name]).to eq("test")
-      expect(hash[:version]).to eq("1.0.0")
-      expect(hash[:repository]).to eq("https://github.com/test/test")
+      expect(hash[:name]).to eq('test')
+      expect(hash[:version]).to eq('1.0.0')
+      expect(hash[:repository]).to eq('https://github.com/test/test')
       expect(hash).not_to have_key(:homepage)
     end
   end
 
   describe NodeInfo::Document::Services do
-    it "creates empty services" do
+    it 'creates empty services' do
       services = described_class.new
       
       expect(services.inbound).to eq([])
       expect(services.outbound).to eq([])
     end
 
-    it "creates services with values" do
+    it 'creates services with values' do
       services = described_class.new(
-        inbound: ["atom1.0"],
-        outbound: ["atom1.0", "rss2.0"]
+        inbound: ['atom1.0'],
+        outbound: ['atom1.0', 'rss2.0']
       )
       
-      expect(services.inbound).to eq(["atom1.0"])
-      expect(services.outbound).to eq(["atom1.0", "rss2.0"])
+      expect(services.inbound).to eq(['atom1.0'])
+      expect(services.outbound).to eq(['atom1.0', 'rss2.0'])
     end
   end
 
   describe NodeInfo::Document::Usage do
-    it "creates empty usage" do
+    it 'creates empty usage' do
       usage = described_class.new
       
       expect(usage.users).to eq({})
@@ -213,7 +213,7 @@ RSpec.describe NodeInfo::Document do
       expect(usage.local_comments).to be_nil
     end
 
-    it "creates usage with values" do
+    it 'creates usage with values' do
       usage = described_class.new(
         users: { total: 100, activeMonth: 50 },
         local_posts: 1000,

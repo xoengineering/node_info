@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "json"
+require 'json'
 
 module NodeInfo
   # Represents a NodeInfo 2.1 document
@@ -72,16 +72,16 @@ module NodeInfo
       data = json.is_a?(String) ? JSON.parse(json) : json
       data = deep_stringify_keys(data)
 
-      metadata = data["metadata"] || {}
+      metadata = data['metadata'] || {}
       metadata = metadata.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       new(
-        version: data["version"],
-        software: parse_software(data["software"]),
-        protocols: data["protocols"],
-        services: parse_services(data["services"]),
-        open_registrations: data["openRegistrations"],
-        usage: parse_usage(data["usage"]),
+        version: data['version'],
+        software: parse_software(data['software']),
+        protocols: data['protocols'],
+        services: parse_services(data['services']),
+        open_registrations: data['openRegistrations'],
+        usage: parse_usage(data['usage']),
         metadata: metadata
       )
     rescue JSON::ParserError => e
@@ -91,7 +91,7 @@ module NodeInfo
     end
 
     # Initialize a new NodeInfo document
-    def initialize(version: "2.1", software:, protocols:, services: nil,
+    def initialize(version: '2.1', software:, protocols:, services: nil,
                    open_registrations: false, usage: nil, metadata: nil)
       @version = version
       @software = software
@@ -141,10 +141,10 @@ module NodeInfo
       return nil unless data
 
       Software.new(
-        name: data["name"],
-        version: data["version"],
-        repository: data["repository"],
-        homepage: data["homepage"]
+        name: data['name'],
+        version: data['version'],
+        repository: data['repository'],
+        homepage: data['homepage']
       )
     end
 
@@ -152,32 +152,32 @@ module NodeInfo
       return Services.new unless data
 
       Services.new(
-        inbound: data["inbound"] || [],
-        outbound: data["outbound"] || []
+        inbound: data['inbound'] || [],
+        outbound: data['outbound'] || []
       )
     end
 
     def self.parse_usage(data)
       return Usage.new unless data
 
-      users = data["users"] || {}
+      users = data['users'] || {}
       users = users.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       Usage.new(
         users: users,
-        local_posts: data["localPosts"],
-        local_comments: data["localComments"]
+        local_posts: data['localPosts'],
+        local_comments: data['localComments']
       )
     end
 
     def validate!
-      raise ValidationError, "version is required" if version.nil? || version.empty?
-      raise ValidationError, "software is required" if software.nil?
-      raise ValidationError, "software.name is required" if software.name.nil? || software.name.empty?
-      raise ValidationError, "software.version is required" if software.version.nil? || software.version.empty?
-      raise ValidationError, "protocols is required" if protocols.nil?
-      raise ValidationError, "protocols must be an array" unless protocols.is_a?(Array)
-      raise ValidationError, "openRegistrations must be a boolean" unless [true, false].include?(open_registrations)
+      raise ValidationError, 'version is required' if version.nil? || version.empty?
+      raise ValidationError, 'software is required' if software.nil?
+      raise ValidationError, 'software.name is required' if software.name.nil? || software.name.empty?
+      raise ValidationError, 'software.version is required' if software.version.nil? || software.version.empty?
+      raise ValidationError, 'protocols is required' if protocols.nil?
+      raise ValidationError, 'protocols must be an array' unless protocols.is_a?(Array)
+      raise ValidationError, 'openRegistrations must be a boolean' unless [true, false].include?(open_registrations)
     end
   end
 end

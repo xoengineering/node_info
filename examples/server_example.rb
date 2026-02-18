@@ -6,19 +6,19 @@
 # Usage:
 #   ruby examples/server_example.rb
 
-require_relative "../lib/node_info"
-require "json"
+require_relative '../lib/node_info'
+require 'json'
 
 # Create a server configuration
 server = NodeInfo::Server.new do |config|
-  config.software_name = "example_fediverse_app"
-  config.software_version = "1.0.0"
-  config.software_repository = "https://github.com/example/fediverse-app"
-  config.software_homepage = "https://example.com"
+  config.software_name = 'example_fediverse_app'
+  config.software_version = '1.0.0'
+  config.software_repository = 'https://github.com/example/fediverse-app'
+  config.software_homepage = 'https://example.com'
 
-  config.protocols = ["activitypub"]
+  config.protocols = ['activitypub']
   config.services_inbound = []
-  config.services_outbound = ["atom1.0", "rss2.0"]
+  config.services_outbound = ['atom1.0', 'rss2.0']
 
   config.open_registrations = true
 
@@ -33,19 +33,19 @@ server = NodeInfo::Server.new do |config|
 
   # Custom metadata
   config.metadata = {
-    nodeName: "Example Fediverse Instance",
-    nodeDescription: "A friendly place on the fediverse",
+    nodeName: 'Example Fediverse Instance',
+    nodeDescription: 'A friendly place on the fediverse',
     maintainer: {
-      name: "Admin User",
-      email: "admin@example.com"
+      name: 'Admin User',
+      email: 'admin@example.com'
     }
   }
 end
 
-puts "=== Well-Known Response (/.well-known/nodeinfo) ==="
-puts JSON.pretty_generate(server.well_known("https://example.com"))
+puts '=== Well-Known Response (/.well-known/nodeinfo) ==='
+puts JSON.pretty_generate(server.well_known('https://example.com'))
 puts
 puts
 
-puts "=== NodeInfo Document (/nodeinfo/2.1) ==="
+puts '=== NodeInfo Document (/nodeinfo/2.1) ==='
 puts JSON.pretty_generate(JSON.parse(server.to_json))

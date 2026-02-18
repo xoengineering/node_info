@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "json"
+require 'json'
 
 module NodeInfo
   # Server for generating NodeInfo documents and well-known responses
@@ -80,12 +80,12 @@ module NodeInfo
     # @return [Hash] Well-known response
     def well_known(base_url = nil)
       url = base_url || config.base_url
-      raise ArgumentError, "base_url is required" unless url
+      raise ArgumentError, 'base_url is required' unless url
 
       {
         links: [
           {
-            rel: "http://nodeinfo.diaspora.software/ns/schema/2.1",
+            rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
             href: "#{url}/nodeinfo/2.1"
           }
         ]
@@ -103,7 +103,7 @@ module NodeInfo
     # @return [NodeInfo::Document]
     def document
       Document.new(
-        version: "2.1",
+        version: '2.1',
         software: build_software,
         protocols: config.protocols,
         services: build_services,
@@ -128,10 +128,10 @@ module NodeInfo
     private
 
     def validate_config!
-      raise ValidationError, "software_name is required" unless config.software_name
-      raise ValidationError, "software_version is required" unless config.software_version
-      raise ValidationError, "protocols is required" unless config.protocols
-      raise ValidationError, "protocols must be an array" unless config.protocols.is_a?(Array)
+      raise ValidationError, 'software_name is required' unless config.software_name
+      raise ValidationError, 'software_version is required' unless config.software_version
+      raise ValidationError, 'protocols is required' unless config.protocols
+      raise ValidationError, 'protocols must be an array' unless config.protocols.is_a?(Array)
     end
 
     def build_software
