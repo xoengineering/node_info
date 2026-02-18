@@ -4,7 +4,7 @@
 # Usage:
 #   ruby examples/server_example.rb
 
-require_relative '../lib/node_info'
+require 'node_info'
 require 'json'
 
 # Create a server configuration

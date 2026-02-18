@@ -13,7 +13,7 @@ RSpec.configure do |config|
   end
 
   # Disable external HTTP requests
-  config.before(:each) do
+  config.before do
     WebMock.disable_net_connect!(allow_localhost: true)
   end
 end

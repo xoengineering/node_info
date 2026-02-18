@@ -4,7 +4,7 @@
 # Usage:
 #   ruby examples/client_example.rb mastodon.social
 
-require_relative '../lib/node_info'
+require 'node_info'
 
 domain = ARGV[0] || 'mastodon.social'
 
