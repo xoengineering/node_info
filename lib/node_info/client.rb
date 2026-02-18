@@ -1,5 +1,6 @@
 require 'http'
 require 'json'
+require 'uri'
 
 module NodeInfo
   # Client for discovering and fetching NodeInfo from Fediverse servers
@@ -44,7 +45,7 @@ module NodeInfo
     def discover domain
       url = normalize_url domain, WELL_KNOWN_PATH
 
-      response = http_client.get(url)
+      response = http_client.get url
 
       raise DiscoveryError, "HTTP #{response.code}" unless response.status.success?
 
@@ -77,22 +78,19 @@ module NodeInfo
     end
 
     def normalize_url domain, path
-      # Remove protocol if present
-      domain = domain.sub %r{^https?://}, ''
+      url  = URI.parse domain
+      url  = URI.parse("https://#{domain}") unless domain.start_with? 'http'
+      host = url.host
 
-      # Remove trailing slash
-      domain = domain.chomp '/'
-
-      # Add https protocol
-      "https://#{domain}#{path}"
+      URI::HTTPS.build(host: host, path: path).to_s
     end
 
     def parse_well_known body
-      data = JSON.parse(body)
+      data = JSON.parse body
       links = data['links']
 
       raise DiscoveryError, 'No links found in well-known document' unless links
-      raise DiscoveryError, 'Links must be an array' unless links.is_a?(Array)
+      raise DiscoveryError, 'Links must be an array' unless links.is_a? Array
 
       links
     rescue JSON::ParserError => e
