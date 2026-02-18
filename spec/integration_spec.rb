@@ -125,7 +125,7 @@ RSpec.describe 'NodeInfo integration' do
     it 'handles invalid NodeInfo document' do
       well_known = {
         links: [{
-          rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
+          rel:  'http://nodeinfo.diaspora.software/ns/schema/2.1',
           href: 'https://invalid.example/nodeinfo/2.1'
         }]
       }.to_json

@@ -18,10 +18,10 @@ module NodeInfo
 
       def to_h
         {
-          name: name,
-          version: version,
+          name:       name,
+          version:    version,
           repository: repository,
-          homepage: homepage
+          homepage:   homepage
         }.compact
       end
     end
@@ -37,7 +37,7 @@ module NodeInfo
 
       def to_h
         {
-          inbound: inbound,
+          inbound:  inbound,
           outbound: outbound
         }
       end
@@ -55,8 +55,8 @@ module NodeInfo
 
       def to_h
         {
-          users: users,
-          localPosts: local_posts,
+          users:         users,
+          localPosts:    local_posts,
           localComments: local_comments
         }.compact
       end
@@ -73,13 +73,13 @@ module NodeInfo
       metadata = metadata.transform_keys(&:to_sym)
 
       new(
-        version: data['version'],
-        software: parse_software(data['software']),
-        protocols: data['protocols'],
-        services: parse_services(data['services']),
+        version:            data['version'],
+        software:           parse_software(data['software']),
+        protocols:          data['protocols'],
+        services:           parse_services(data['services']),
         open_registrations: data['openRegistrations'],
-        usage: parse_usage(data['usage']),
-        metadata: metadata
+        usage:              parse_usage(data['usage']),
+        metadata:           metadata
       )
     rescue JSON::ParserError => e
       raise ParseError, "Invalid JSON: #{e.message}"
@@ -105,13 +105,13 @@ module NodeInfo
     # @return [Hash]
     def to_h
       {
-        version: version,
-        software: software.to_h,
-        protocols: protocols,
-        services: services.to_h,
+        version:           version,
+        software:          software.to_h,
+        protocols:         protocols,
+        services:          services.to_h,
         openRegistrations: open_registrations,
-        usage: usage.to_h,
-        metadata: metadata
+        usage:             usage.to_h,
+        metadata:          metadata
       }
     end
 
@@ -139,10 +139,10 @@ module NodeInfo
         return nil unless data
 
         Software.new(
-          name: data['name'],
-          version: data['version'],
+          name:       data['name'],
+          version:    data['version'],
           repository: data['repository'],
-          homepage: data['homepage']
+          homepage:   data['homepage']
         )
       end
 
@@ -150,7 +150,7 @@ module NodeInfo
         return Services.new unless data
 
         Services.new(
-          inbound: data['inbound'] || [],
+          inbound:  data['inbound'] || [],
           outbound: data['outbound'] || []
         )
       end
@@ -162,8 +162,8 @@ module NodeInfo
         users = users.transform_keys(&:to_sym)
 
         Usage.new(
-          users: users,
-          local_posts: data['localPosts'],
+          users:          users,
+          local_posts:    data['localPosts'],
           local_comments: data['localComments']
         )
       end

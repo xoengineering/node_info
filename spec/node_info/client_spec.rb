@@ -10,7 +10,7 @@ RSpec.describe NodeInfo::Client do
     {
       links: [
         {
-          rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
+          rel:  'http://nodeinfo.diaspora.software/ns/schema/2.1',
           href: nodeinfo_url
         }
       ]
@@ -19,23 +19,23 @@ RSpec.describe NodeInfo::Client do
 
   let(:nodeinfo_response) do
     {
-      version: '2.1',
-      software: {
-        name: 'mastodon',
+      version:           '2.1',
+      software:          {
+        name:    'mastodon',
         version: '4.2.0'
       },
-      protocols: ['activitypub'],
-      services: {
-        inbound: [],
+      protocols:         ['activitypub'],
+      services:          {
+        inbound:  [],
         outbound: []
       },
       openRegistrations: true,
-      usage: {
+      usage:             {
         users: {
           total: 1000
         }
       },
-      metadata: {}
+      metadata:          {}
     }.to_json
   end
 
@@ -68,11 +68,11 @@ RSpec.describe NodeInfo::Client do
       response = {
         links: [
           {
-            rel: 'http://nodeinfo.diaspora.software/ns/schema/2.0',
+            rel:  'http://nodeinfo.diaspora.software/ns/schema/2.0',
             href: 'https://mastodon.social/nodeinfo/2.0'
           },
           {
-            rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
+            rel:  'http://nodeinfo.diaspora.software/ns/schema/2.1',
             href: nodeinfo_url
           }
         ]
@@ -89,7 +89,7 @@ RSpec.describe NodeInfo::Client do
       response = {
         links: [
           {
-            rel: 'http://nodeinfo.diaspora.software/ns/schema/2.0',
+            rel:  'http://nodeinfo.diaspora.software/ns/schema/2.0',
             href: 'https://mastodon.social/nodeinfo/2.0'
           }
         ]
@@ -127,7 +127,7 @@ RSpec.describe NodeInfo::Client do
       response = {
         links: [
           {
-            rel: 'http://nodeinfo.diaspora.software/ns/schema/1.0',
+            rel:  'http://nodeinfo.diaspora.software/ns/schema/1.0',
             href: 'https://mastodon.social/nodeinfo/1.0'
           }
         ]

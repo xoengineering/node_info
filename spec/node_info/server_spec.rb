@@ -161,7 +161,7 @@ RSpec.describe NodeInfo::Server do
         config.software_version = '1.0.0'
         config.protocols = ['activitypub']
         config.usage_users = {
-          total: -> { 100 },
+          total:       -> { 100 },
           activeMonth: -> { 50 }
         }
       end
@@ -178,7 +178,7 @@ RSpec.describe NodeInfo::Server do
         config.software_version = '1.0.0'
         config.protocols = ['activitypub']
         config.metadata = {
-          nodeName: 'My Cool Instance',
+          nodeName:        'My Cool Instance',
           nodeDescription: 'A place for cool people'
         }
       end

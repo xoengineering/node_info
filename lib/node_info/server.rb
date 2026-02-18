@@ -83,7 +83,7 @@ module NodeInfo
       {
         links: [
           {
-            rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
+            rel:  'http://nodeinfo.diaspora.software/ns/schema/2.1',
             href: "#{url}/nodeinfo/2.1"
           }
         ]
@@ -101,13 +101,13 @@ module NodeInfo
     # @return [NodeInfo::Document]
     def document
       Document.new(
-        version: '2.1',
-        software: build_software,
-        protocols: config.protocols,
-        services: build_services,
+        version:            '2.1',
+        software:           build_software,
+        protocols:          config.protocols,
+        services:           build_services,
         open_registrations: config.open_registrations,
-        usage: build_usage,
-        metadata: config.metadata
+        usage:              build_usage,
+        metadata:           config.metadata
       )
     end
 
@@ -126,24 +126,24 @@ module NodeInfo
     private
 
     def validate_config!
-      raise ValidationError, 'software_name is required' unless config.software_name
+      raise ValidationError, 'software_name is required'    unless config.software_name
       raise ValidationError, 'software_version is required' unless config.software_version
-      raise ValidationError, 'protocols is required' unless config.protocols
-      raise ValidationError, 'protocols must be an array' unless config.protocols.is_a?(Array)
+      raise ValidationError, 'protocols is required'        unless config.protocols
+      raise ValidationError, 'protocols must be an array'   unless config.protocols.is_a?(Array)
     end
 
     def build_software
       Document::Software.new(
-        name: config.software_name,
-        version: config.software_version,
+        name:       config.software_name,
+        version:    config.software_version,
         repository: config.software_repository,
-        homepage: config.software_homepage
+        homepage:   config.software_homepage
       )
     end
 
     def build_services
       Document::Services.new(
-        inbound: config.services_inbound,
+        inbound:  config.services_inbound,
         outbound: config.services_outbound
       )
     end

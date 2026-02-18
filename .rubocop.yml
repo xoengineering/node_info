@@ -27,6 +27,9 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: single_quotes
 
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
 Layout/LineLength:
   Max: 140
   AllowedPatterns:

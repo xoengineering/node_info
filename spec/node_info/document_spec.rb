@@ -3,29 +3,29 @@ require 'spec_helper'
 RSpec.describe NodeInfo::Document do
   let(:valid_data) do
     {
-      version: '2.1',
-      software: {
-        name: 'mastodon',
-        version: '4.2.0',
+      version:           '2.1',
+      software:          {
+        name:       'mastodon',
+        version:    '4.2.0',
         repository: 'https://github.com/mastodon/mastodon',
-        homepage: 'https://joinmastodon.org'
+        homepage:   'https://joinmastodon.org'
       },
-      protocols: ['activitypub'],
-      services: {
-        inbound: [],
+      protocols:         ['activitypub'],
+      services:          {
+        inbound:  [],
         outbound: []
       },
       openRegistrations: true,
-      usage: {
-        users: {
-          total: 1000,
-          activeMonth: 500,
+      usage:             {
+        users:         {
+          total:          1000,
+          activeMonth:    500,
           activeHalfyear: 750
         },
-        localPosts: 10_000,
+        localPosts:    10_000,
         localComments: 5000
       },
-      metadata: {
+      metadata:          {
         nodeName: 'My Instance'
       }
     }
@@ -56,13 +56,13 @@ RSpec.describe NodeInfo::Document do
 
     it 'parses minimal document' do
       minimal = {
-        version: '2.1',
-        software: { name: 'test', version: '1.0' },
-        protocols: ['activitypub'],
-        services: { inbound: [], outbound: [] },
+        version:           '2.1',
+        software:          { name: 'test', version: '1.0' },
+        protocols:         ['activitypub'],
+        services:          { inbound: [], outbound: [] },
         openRegistrations: false,
-        usage: { users: {} },
-        metadata: {}
+        usage:             { users: {} },
+        metadata:          {}
       }
 
       doc = described_class.parse(minimal)
@@ -73,12 +73,12 @@ RSpec.describe NodeInfo::Document do
   describe '#initialize' do
     it 'creates a valid document' do
       software = NodeInfo::Document::Software.new(
-        name: 'test',
+        name:    'test',
         version: '1.0.0'
       )
 
       doc = described_class.new(
-        software: software,
+        software:  software,
         protocols: ['activitypub']
       )
 
@@ -115,8 +115,8 @@ RSpec.describe NodeInfo::Document do
 
       expect do
         described_class.new(
-          software: software,
-          protocols: [],
+          software:           software,
+          protocols:          [],
           open_registrations: 'yes'
         )
       end.to raise_error(NodeInfo::ValidationError, /openRegistrations must be a boolean/)
@@ -158,10 +158,10 @@ RSpec.describe NodeInfo::Document do
 
     it 'creates software info with all fields' do
       software = described_class.new(
-        name: 'test',
-        version: '1.0.0',
+        name:       'test',
+        version:    '1.0.0',
         repository: 'https://github.com/test/test',
-        homepage: 'https://test.example'
+        homepage:   'https://test.example'
       )
 
       expect(software.repository).to eq('https://github.com/test/test')
@@ -170,8 +170,8 @@ RSpec.describe NodeInfo::Document do
 
     it 'converts to hash' do
       software = described_class.new(
-        name: 'test',
-        version: '1.0.0',
+        name:       'test',
+        version:    '1.0.0',
         repository: 'https://github.com/test/test'
       )
 
@@ -193,7 +193,7 @@ RSpec.describe NodeInfo::Document do
 
     it 'creates services with values' do
       services = described_class.new(
-        inbound: ['atom1.0'],
+        inbound:  ['atom1.0'],
         outbound: ['atom1.0', 'rss2.0']
       )
 
@@ -213,8 +213,8 @@ RSpec.describe NodeInfo::Document do
 
     it 'creates usage with values' do
       usage = described_class.new(
-        users: { total: 100, activeMonth: 50 },
-        local_posts: 1000,
+        users:          { total: 100, activeMonth: 50 },
+        local_posts:    1000,
         local_comments: 500
       )
 

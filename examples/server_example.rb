@@ -22,8 +22,8 @@ server = NodeInfo::Server.new do |config|
 
   # Static usage stats (in production, use procs to compute dynamically)
   config.usage_users = {
-    total: 1000,
-    activeMonth: 500,
+    total:          1000,
+    activeMonth:    500,
     activeHalfyear: 750
   }
   config.usage_local_posts = 50_000
@@ -31,10 +31,10 @@ server = NodeInfo::Server.new do |config|
 
   # Custom metadata
   config.metadata = {
-    nodeName: 'Example Fediverse Instance',
+    nodeName:        'Example Fediverse Instance',
     nodeDescription: 'A friendly place on the fediverse',
-    maintainer: {
-      name: 'Admin User',
+    maintainer:      {
+      name:  'Admin User',
       email: 'admin@example.com'
     }
   }
