@@ -26,8 +26,8 @@ server = NodeInfo::Server.new do |config|
     activeMonth: 500,
     activeHalfyear: 750
   }
-  config.usage_local_posts = 50000
-  config.usage_local_comments = 25000
+  config.usage_local_posts = 50_000
+  config.usage_local_comments = 25_000
 
   # Custom metadata
   config.metadata = {

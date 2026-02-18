@@ -22,7 +22,7 @@ RSpec.describe NodeInfo::Document do
           activeMonth: 500,
           activeHalfyear: 750
         },
-        localPosts: 10000,
+        localPosts: 10_000,
         localComments: 5000
       },
       metadata: {
@@ -131,7 +131,7 @@ RSpec.describe NodeInfo::Document do
       expect(hash[:version]).to eq('2.1')
       expect(hash[:software][:name]).to eq('mastodon')
       expect(hash[:openRegistrations]).to be true
-      expect(hash[:usage][:localPosts]).to eq(10000)
+      expect(hash[:usage][:localPosts]).to eq(10_000)
     end
   end
 
