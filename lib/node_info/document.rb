@@ -89,7 +89,7 @@ module NodeInfo
     end
 
     # Initialize a new NodeInfo document
-    def initialize(version: '2.1', software:, protocols:, services: nil,
+    def initialize(software:, protocols:, version: '2.1', services: nil,
                    open_registrations: false, usage: nil, metadata: nil)
       @version = version
       @software = software
