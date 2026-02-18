@@ -121,51 +121,55 @@ module NodeInfo
       to_h.to_json(*)
     end
 
-    private
+    class << self
+      private
 
-    def self.deep_stringify_keys(obj)
-      case obj
-      when Hash
-        obj.each_with_object({}) { |(k, v), h| h[k.to_s] = deep_stringify_keys(v) }
-      when Array
-        obj.map { |v| deep_stringify_keys(v) }
-      else
-        obj
+      def deep_stringify_keys(obj)
+        case obj
+        when Hash
+          obj.each_with_object({}) { |(k, v), h| h[k.to_s] = deep_stringify_keys(v) }
+        when Array
+          obj.map { |v| deep_stringify_keys(v) }
+        else
+          obj
+        end
+      end
+
+      def parse_software(data)
+        return nil unless data
+
+        Software.new(
+          name: data['name'],
+          version: data['version'],
+          repository: data['repository'],
+          homepage: data['homepage']
+        )
+      end
+
+      def parse_services(data)
+        return Services.new unless data
+
+        Services.new(
+          inbound: data['inbound'] || [],
+          outbound: data['outbound'] || []
+        )
+      end
+
+      def parse_usage(data)
+        return Usage.new unless data
+
+        users = data['users'] || {}
+        users = users.transform_keys(&:to_sym)
+
+        Usage.new(
+          users: users,
+          local_posts: data['localPosts'],
+          local_comments: data['localComments']
+        )
       end
     end
 
-    def self.parse_software(data)
-      return nil unless data
-
-      Software.new(
-        name: data['name'],
-        version: data['version'],
-        repository: data['repository'],
-        homepage: data['homepage']
-      )
-    end
-
-    def self.parse_services(data)
-      return Services.new unless data
-
-      Services.new(
-        inbound: data['inbound'] || [],
-        outbound: data['outbound'] || []
-      )
-    end
-
-    def self.parse_usage(data)
-      return Usage.new unless data
-
-      users = data['users'] || {}
-      users = users.transform_keys(&:to_sym)
-
-      Usage.new(
-        users: users,
-        local_posts: data['localPosts'],
-        local_comments: data['localComments']
-      )
-    end
+    private
 
     def validate!
       raise ValidationError, 'version is required' if version.nil? || version.empty?

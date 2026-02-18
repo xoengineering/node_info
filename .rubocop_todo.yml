@@ -7,11 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 4
-Lint/IneffectiveAccessModifier:
-  Exclude:
-    - "lib/node_info/document.rb"
-
-# Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
   Max: 33
