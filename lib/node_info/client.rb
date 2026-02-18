@@ -20,7 +20,7 @@ module NodeInfo
     # Initialize a new client
     # @param timeout [Integer] HTTP timeout in seconds (default: 10)
     # @param follow_redirects [Boolean] Whether to follow HTTP redirects (default: true)
-    def initialize(timeout: 10, follow_redirects: true)
+    def initialize timeout: 10, follow_redirects: true
       @timeout = timeout
       @follow_redirects = follow_redirects
     end
@@ -31,7 +31,7 @@ module NodeInfo
     # @raise [NodeInfo::DiscoveryError] If discovery fails
     # @raise [NodeInfo::FetchError] If fetching fails
     # @raise [NodeInfo::ParseError] If parsing fails
-    def fetch(domain)
+    def fetch domain
       url = discover(domain)
       fetch_document(url)
     end
@@ -40,7 +40,7 @@ module NodeInfo
     # @param domain [String] The domain to discover
     # @return [String] The NodeInfo document URL
     # @raise [NodeInfo::DiscoveryError] If discovery fails
-    def discover(domain)
+    def discover domain
       url = normalize_url(domain, WELL_KNOWN_PATH)
 
       response = http_client.get(url)
@@ -57,7 +57,7 @@ module NodeInfo
     # @param url [String] The NodeInfo document URL
     # @return [NodeInfo::Document]
     # @raise [NodeInfo::FetchError] If fetching fails
-    def fetch_document(url)
+    def fetch_document url
       response = http_client.get(url)
 
       raise FetchError, "HTTP #{response.code}" unless response.status.success?
@@ -75,7 +75,7 @@ module NodeInfo
       client
     end
 
-    def normalize_url(domain, path)
+    def normalize_url domain, path
       # Remove protocol if present
       domain = domain.sub(%r{^https?://}, '')
       # Remove trailing slash
@@ -84,7 +84,7 @@ module NodeInfo
       "https://#{domain}#{path}"
     end
 
-    def parse_well_known(body)
+    def parse_well_known body
       data = JSON.parse(body)
       links = data['links']
 
@@ -96,7 +96,7 @@ module NodeInfo
       raise DiscoveryError, "Invalid JSON in well-known document: #{e.message}"
     end
 
-    def find_nodeinfo_url(links)
+    def find_nodeinfo_url links
       # Try to find a supported schema, preferring 2.1 over 2.0
       SUPPORTED_SCHEMAS.each do |schema|
         link = links.find { |l| l['rel'] == schema }

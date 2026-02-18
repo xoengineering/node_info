@@ -58,7 +58,7 @@ module NodeInfo
 
       private
 
-      def evaluate_value(value)
+      def evaluate_value value
         value.is_a?(Proc) ? value.call : value
       end
     end
@@ -76,7 +76,7 @@ module NodeInfo
     # Generate the well-known nodeinfo response
     # @param base_url [String] Base URL of the server (e.g., "https://example.com")
     # @return [Hash] Well-known response
-    def well_known(base_url = nil)
+    def well_known base_url = nil
       url = base_url || config.base_url
       raise ArgumentError, 'base_url is required' unless url
 
@@ -93,7 +93,7 @@ module NodeInfo
     # Generate the well-known nodeinfo response as JSON
     # @param base_url [String] Base URL of the server
     # @return [String] JSON string
-    def well_known_json(base_url = nil)
+    def well_known_json base_url = nil
       well_known(base_url).to_json
     end
 

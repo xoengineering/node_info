@@ -9,7 +9,7 @@ module NodeInfo
     class Software
       attr_reader :name, :version, :repository, :homepage
 
-      def initialize(name:, version:, repository: nil, homepage: nil)
+      def initialize name:, version:, repository: nil, homepage: nil
         @name = name
         @version = version
         @repository = repository
@@ -30,7 +30,7 @@ module NodeInfo
     class Services
       attr_reader :inbound, :outbound
 
-      def initialize(inbound: [], outbound: [])
+      def initialize inbound: [], outbound: []
         @inbound = inbound
         @outbound = outbound
       end
@@ -47,7 +47,7 @@ module NodeInfo
     class Usage
       attr_reader :users, :local_posts, :local_comments
 
-      def initialize(users: {}, local_posts: nil, local_comments: nil)
+      def initialize users: {}, local_posts: nil, local_comments: nil
         @users = users
         @local_posts = local_posts
         @local_comments = local_comments
@@ -65,7 +65,7 @@ module NodeInfo
     # Parse a NodeInfo document from JSON
     # @param json [String, Hash] JSON string or hash
     # @return [NodeInfo::Document]
-    def self.parse(json)
+    def self.parse json
       data = json.is_a?(String) ? JSON.parse(json) : json
       data = deep_stringify_keys(data)
 
@@ -88,8 +88,8 @@ module NodeInfo
     end
 
     # Initialize a new NodeInfo document
-    def initialize(software:, protocols:, version: '2.1', services: nil,
-                   open_registrations: false, usage: nil, metadata: nil)
+    def initialize software:, protocols:, version: '2.1', services: nil,
+                   open_registrations: false, usage: nil, metadata: nil
       @version = version
       @software = software
       @protocols = protocols
@@ -124,7 +124,7 @@ module NodeInfo
     class << self
       private
 
-      def deep_stringify_keys(obj)
+      def deep_stringify_keys obj
         case obj
         when Hash
           obj.each_with_object({}) { |(k, v), h| h[k.to_s] = deep_stringify_keys(v) }
@@ -135,7 +135,7 @@ module NodeInfo
         end
       end
 
-      def parse_software(data)
+      def parse_software data
         return nil unless data
 
         Software.new(
@@ -146,7 +146,7 @@ module NodeInfo
         )
       end
 
-      def parse_services(data)
+      def parse_services data
         return Services.new unless data
 
         Services.new(
@@ -155,7 +155,7 @@ module NodeInfo
         )
       end
 
-      def parse_usage(data)
+      def parse_usage data
         return Usage.new unless data
 
         users = data['users'] || {}
