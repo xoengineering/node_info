@@ -34,8 +34,8 @@ module NodeInfo
     # Create a new NodeInfo server
     # @yield [config] Configuration block
     # @return [NodeInfo::Server]
-    def server(&block)
-      Server.new(&block)
+    def server(&)
+      Server.new(&)
     end
   end
 end

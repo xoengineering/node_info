@@ -119,8 +119,8 @@ module NodeInfo
 
     # Generate the NodeInfo document as JSON
     # @return [String]
-    def to_json(*args)
-      document.to_json(*args)
+    def to_json(*)
+      document.to_json(*)
     end
 
     private
