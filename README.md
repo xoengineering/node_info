@@ -26,13 +26,13 @@ gem 'node_info'
 
 And then execute:
 
-```sh
+```ruby
 bundle install
 ```
 
 Or install it yourself as:
 
-```sh
+```ruby
 gem install node_info
 ```
 
@@ -331,29 +331,31 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 ### Running Tests
 
-```sh
+```ruby
 bundle exec rspec
 ```
 
 ### Running RuboCop
 
-```sh
+```ruby
 bundle exec rubocop
 ```
 
 ### Running All Checks
 
-```sh
+```ruby
 bundle exec rake
 ```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at the https://github.com/xoengineering/node_info repo.
+Bug reports and pull requests are welcome on GitHub at the
+https://github.com/xoengineering/node_info repo.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).
 
 ## References
 
