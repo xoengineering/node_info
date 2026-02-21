@@ -9,12 +9,8 @@ plugins:
   - rubocop-thread_safety
 
 AllCops:
-  TargetRubyVersion: 4.0
   NewCops: enable
   SuggestExtensions: false
-  Exclude:
-    - "vendor/**/*"
-    - "tmp/**/*"
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
