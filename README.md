@@ -4,17 +4,17 @@
 is a standardized way for Fediverse servers to expose metadata about themselves,
 including software information, supported protocols, usage statistics, and more.
 
-A pure Ruby implementation of the NodeInfo protocol for the Fediverse,
+Ruby gem implemementation of the `NodeInfo` protocol for the Fediverse,
 providing both client and server functionality.
-This gem implements NodeInfo 2.1 as specified in
+This gem implements `NodeInfo` 2.1 as specified in
 [FEP-f1d5](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md).
 
 ## Features
 
-- Pure Ruby     - Works with any Ruby framework or plain scripts
-- Client        - Discover and fetch `NodeInfo` from any Fediverse server
-- Server        - Serve your own `NodeInfo` documents
-- Dynamic Stats - Support for static values or dynamic procs for usage statistics
+- Language agnostic - Works with any Ruby framework or plain scripts
+- Client            - Discover and fetch `NodeInfo` from any Fediverse server
+- Server            - Serve your own `NodeInfo` documents
+- Dynamic Stats     - Support for static values or dynamic procs for usage statistics
 
 ## Installation
 
