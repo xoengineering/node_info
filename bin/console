@@ -6,4 +6,4 @@ require 'node_info'
 # with your gem easier.
 
 require 'irb'
-IRB.start(__FILE__)
+IRB.start __FILE__
